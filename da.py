@@ -118,7 +118,7 @@ def qq():
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status)\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        with count(distinct(o.name)) as na\
+        with count((o.name)) as na\
         return na"
         resrisky=graph.query(queryrisky).data()
 
@@ -127,7 +127,7 @@ def qq():
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status{name:'Open'}),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status)\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        with count(distinct(o.name)) as na\
+        with count((o.name)) as na\
         return na"
         resriskyopen=graph.query(queryriskyopen).data()
 
@@ -136,7 +136,7 @@ def qq():
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status{name:'Open'}),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status)\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        with count(distinct(o.name)) as na\
+        with count((o.name)) as na\
         return na"
         resopen=graph.query(queryopen).data()
 
@@ -145,7 +145,7 @@ def qq():
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status{name:'Closed'}),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status)\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        with count(distinct(o.name)) as na\
+        with count((o.name)) as na\
         return na"
         resclosed=graph.query(queryclosed).data()
         
@@ -156,14 +156,14 @@ def qq():
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status{name:'Approved'})\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        return count(distinct(on.name)) as opn"
+        return count((on.name)) as opn"
         resappr=graph.query(queryappr).data()
         queryappr2="match (v:Vertical)-[:VERTICAL]-(oi:Opportunity_ID)-[:OPPORTUNITY_NAME]-(on:Opportunity_Name)-[:OBSERVATION]-(o:Observation)-[:IS_RISKY]-(r:Risky),\
         (b:Billing_Type)-[:BILLING]-(on:Opportunity_Name)-[:DELIVERABLE]-(d:Deliverable_Type),\
         (ot:Observation_Type)-[:OBSERVATION_TYPE]-(o:Observation)-[:STATUS]-(s:Status),\
         (oi:Opportunity_ID)-[:ACCOUNT]-(a:Account),(on:Opportunity_Name)-[:DA_APPROVAL]-(da:DA_Approval_Status{name:'Rejected'})\
         where v.name='"+v+"' and a.name contains'"+a+"'\
-        return count(distinct(on.name)) as opn2"
+        return count((on.name)) as opn2"
         resappr2=graph.query(queryappr2).data()
         return render_template('index.html',data=data,a=a,v=v,r3=res5,ver=v,freq=resfreq1,c_5=c_5,appr=resappr,appr2=resappr2,freqrisk=resfreqrisk,risky=resrisky,openrisky=resriskyopen,openob=resopen,closedob=resclosed)
     
