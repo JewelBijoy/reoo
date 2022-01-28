@@ -4,150 +4,159 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Simple graph</title>
-    <link rel="icon" href="static/favicon.ico"/>
+    <link rel="icon" href="static/favicon.ico" />
 
     <!-- Add Popoto default CSS styles -->
     <link rel="stylesheet" href="static/modules/popoto/dist/popoto.min.css">
     <link rel="stylesheet" href="static/shared.css">
 </head>
+
 <body class="ppt-body">
 
-<section class="ppt-section-main" style="height: 900px">
-    <div class="ppt-section-header">
-        <span class="ppt-header-span">USTREO Neo4j graph -</span> graph example
-    </div>
+    <section class="ppt-section-main" style="height: 900px">
+        <div class="ppt-section-header">
+            <span class="ppt-header-span">USTREO Neo4j graph -</span> graph example
+        </div>
 
-    <!-- By default the graph is generated on the HTML element with ID "popoto-graph"
+        <!-- By default the graph is generated on the HTML element with ID "popoto-graph"
      If needed this id can be modified with property "popoto.graph.containerId" -->
 
-    <div id="popoto-graph" class="ppt-div-graph">
-        <!-- Graph is generated here -->
-    </div>
+        <div id="popoto-graph" class="ppt-div-graph">
+            <!-- Graph is generated here -->
+        </div>
 
-</section>
+    </section>
 
-<!-- Required scripts -->
-<script src="static/shared.js" charset="utf-8"></script>
-<script src="static/modules/d3/dist/d3.min.js" charset="utf-8"></script>
-<script src="static/modules/neo4j-driver-lite/lib/browser/neo4j-lite-web.min.js" charset="utf-8"></script>
-<script src="static/modules/popoto/dist/popoto.min.js" charset="utf-8"></script>
-<script>
+    <!-- Required scripts -->
+    <script src="static/shared.js" charset="utf-8"></script>
+    <script src="static/modules/d3/dist/d3.min.js" charset="utf-8"></script>
+    <script src="static/modules/neo4j-driver-lite/lib/browser/neo4j-lite-web.min.js" charset="utf-8"></script>
+    <script src="static/modules/popoto/dist/popoto.min.js" charset="utf-8"></script>
+    <script>
 
-    var driver = neo4j.driver(
-        "neo4j+s://fbd331ed.databases.neo4j.io",
-        neo4j.auth.basic("neo4j", "4ebwFjta0RPhkNs-Ea6IPcNUPFSrI_DV-ZEBUxArqzQ"),
-    );
+        var driver = neo4j.driver(
+            "neo4j+s://fbd331ed.databases.neo4j.io",
+            neo4j.auth.basic("neo4j", "4ebwFjta0RPhkNs-Ea6IPcNUPFSrI_DV-ZEBUxArqzQ"),
+        );
 
-    popoto.runner.DRIVER = driver
+        popoto.runner.DRIVER = driver
 
-    // Define the list of label provider to customize the graph behavior:
-    // Only two labels are used in Neo4j movie graph example: "Movie" and "Person"
-    popoto.provider.node.Provider = {
-        "BusinessService": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-        "TeamName": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"PrimaryLocation": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"SecondaryLocation": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"ThirdParty": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"ThirdPartyName": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"Scenario": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        },
-		"ScenarioName": {
-            "returnAttributes": ["name"],
-            "constraintAttribute": "name"
-        }
-		
-		
-    };
-	
-	
-    var schema = {
-        label: "BusinessService",
-        rel: [
-            {
-              label: "TEAM",
-              target: {
-              label: "TeamName",
-					
-					rel: [
-						{
-						label: "PRIMARYLOCATION",
-						target: {
-						label: "PrimaryLocation"
-                    
-						}
-						},
-						{
-						label: "SECONDARYLOCATION",
-						target: {
-						label: "SecondaryLocation"
-                    
-						}
-						}
-					]
-					}
-			
-					
-			},
-			{
-			label: "THIRDPARTY",
-              target: {
-              label: "ThirdParty",
-			  rel: [
-			  {
-						label: "THIRDPARTYNAME",
-						target: {
-						label: "ThirdPartyName"
-                    
-						}
-						}
-			  
-			  ]
-			  }	
-			},
-			{
-			label: "SCENARIOS",
-              target: {
-              label: "Scenario",
-			 
-			  }	
-			}
-			
-					
-					
-		   
-        ]
-           
-    };
+        // Define the list of label provider to customize the graph behavior:
+        // Only two labels are used in Neo4j movie graph example: "Movie" and "Person"
+        popoto.provider.node.Provider = {
+            "BusinessService": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TeamName": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "PrimaryLocation": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "SecondaryLocation": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ThirdParty": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ThirdPartyName": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Scenario": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ScenarioName": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            }
 
-    driver.verifyConnectivity().then(function () {
-        // Start the generation using parameter as root label of the query.
-        popoto.start(schema);
-    }).catch(function (error) {
-        document.getElementById("modal").style.display = "block";
-        document.getElementById("error-content").innerText = error;
-        console.error(error)
-    })
 
-</script>
+        };
+
+
+        var schema = {
+            label: "BusinessService",
+            rel: [
+                {
+                    label: "TEAM",
+                    target: {
+                        label: "TeamName",
+
+                        rel: [
+                            {
+                                label: "PRIMARYLOCATION",
+                                target: {
+                                    label: "PrimaryLocation"
+
+                                }
+                            },
+                            {
+                                label: "SECONDARYLOCATION",
+                                target: {
+                                    label: "SecondaryLocation"
+
+                                }
+                            }
+                        ]
+                    }
+
+
+                },
+                {
+                    label: "THIRDPARTY",
+                    target: {
+                        label: "ThirdParty",
+                        rel: [
+                            {
+                                label: "THIRDPARTYNAME",
+                                target: {
+                                    label: "ThirdPartyName"
+
+                                }
+                            }
+
+                        ]
+                    }
+                },
+                {
+                    label: "SCENARIOS",
+                    target: {
+                        label: "Scenario",
+                        rel: [
+                            {
+                                label: "SCENARIONAME",
+                                target: {
+                                    label: "ScenarioName"
+
+                                }
+                            }
+
+                        ]
+
+                    }
+                }
+
+            ]
+
+        };
+
+        driver.verifyConnectivity().then(function () {
+            // Start the generation using parameter as root label of the query.
+            popoto.start(schema);
+        }).catch(function (error) {
+            document.getElementById("modal").style.display = "block";
+            document.getElementById("error-content").innerText = error;
+            console.error(error)
+        })
+
+    </script>
 </body>
+
 </html>
