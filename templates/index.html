@@ -1,201 +1,153 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<style>
-.node { stroke: #222; stroke-width: 1.5px; }
-    .node.TeamName { fill: rgb(230, 240, 208); }
-    .node.Business_Service { fill: rgb(15, 14, 14); }
-    .link { stroke: rgb(248, 243, 243); stroke-opacity: .6; stroke-width: 1px; }
-    .table-responsive {
-    max-height:400px;
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>DA GRAPH</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Simple graph</title>
+    <link rel="icon" href="static/favicon.ico"/>
+
+    <!-- Add Popoto default CSS styles -->
+    <link rel="stylesheet" href="static/modules/popoto/dist/popoto.min.css">
+    <link rel="stylesheet" href="static/shared.css">
 </head>
-<body style="background-color:#003C51">
-  <div class="container-fluid pt-1">
-    <h1 class="text-center text-capitalize text-white">DA GRAPH</h1>
-      <form id="form1" method="post" action="/q1">
-        <div class="row pt-4">
-          <div class="col form-group">
-            <label class="h6 text-white" for="Vertical">Vertical</label>
-            <select name="vertical" id="ver" class="custom-select w-50" style="background-color:#ECECE1">
-              {% for i in data %}
-              <option value='{{i.ver}}'>{{i.ver}}</option>
-              {% endfor %}
-            </select>
-          </div>
-            <div class="col form-group">
-            <label class="h6 text-white" for="Account">Account</label>
-            <select name="account" id="acc" class="custom-select w-50" style="background-color:#ECECE1">
-            </select>
-          </div>
-              <div class="col form-group">
-            <label class="h6 text-white" for="Month">Month</label>
-              <select name="month" class="custom-select w-50" style="background-color:#ECECE1">
-                      <option value='Oct'>Oct</option>
-              </select>
-            </div>
-			<div class="col">
-            <input type="submit" class="btn w-50" style="background-color:#ECECE1"/>
-          </div>
-          </div>
+<body class="ppt-body">
+
+<section class="ppt-section-main" style="height: 900px">
+    <div class="ppt-section-header">
+        <span class="ppt-header-span">USTREO Neo4j graph -</span> graph example
+    </div>
+
+    <!-- By default the graph is generated on the HTML element with ID "popoto-graph"
+     If needed this id can be modified with property "popoto.graph.containerId" -->
+
+    <div id="popoto-graph" class="ppt-div-graph">
+        <!-- Graph is generated here -->
+    </div>
+
+</section>
+
+<!-- Required scripts -->
+<script src="static/shared.js" charset="utf-8"></script>
+<script src="static/modules/d3/dist/d3.min.js" charset="utf-8"></script>
+<script src="static/modules/neo4j-driver-lite/lib/browser/neo4j-lite-web.min.js" charset="utf-8"></script>
+<script src="static/modules/popoto/dist/popoto.min.js" charset="utf-8"></script>
+<script>
+
+    var driver = neo4j.driver(
+        "neo4j+s://fbd331ed.databases.neo4j.io",
+        neo4j.auth.basic("neo4j", "4ebwFjta0RPhkNs-Ea6IPcNUPFSrI_DV-ZEBUxArqzQ"),
+    );
+
+    popoto.runner.DRIVER = driver
+
+    // Define the list of label provider to customize the graph behavior:
+    // Only two labels are used in Neo4j movie graph example: "Movie" and "Person"
+    popoto.provider.node.Provider = {
+        "BusinessService": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+        "TeamName": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"PrimaryLocation": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"SecondaryLocation": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"ThirdParty": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"ThirdPartyName": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"Scenario": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        },
+		"ScenarioName": {
+            "returnAttributes": ["name"],
+            "constraintAttribute": "name"
+        }
 		
-              
-		 
-		  
-          
-        
-      </form>
+		
+    };
+	
+	
+    var schema = {
+        label: "BusinessService",
+        rel: [
+            {
+              label: "TEAM",
+              target: {
+              label: "TeamName",
+					
+					rel: [
+						{
+						label: "PRIMARYLOCATION",
+						target: {
+						label: "PrimaryLocation"
+                    
+						}
+						},
+						{
+						label: "SECONDARYLOCATION",
+						target: {
+						label: "SecondaryLocation"
+                    
+						}
+						}
+					]
+					}
+			
+					
+			},
+			{
+			label: "THIRDPARTY",
+              target: {
+              label: "ThirdParty",
+			  rel: [
+			  {
+						label: "THIRDPARTYNAME",
+						target: {
+						label: "ThirdPartyName"
+                    
+						}
+						}
+			  
+			  ]
+			  }	
+			},
+			{
+			label: "SCENARIOS",
+              target: {
+              label: "Scenario",
+			 
+			  }	
+			}
+			
+					
+					
+		   
+        ]
+           
+    };
 
-      <div class="row pt-3">
-        <div class="col-3">
-          <div class="card m-1" style="background-color:#D7E0E3">
-            <div class="card-body">
-            <p class="text-truncate font-weight-bold">Account:{{a}}</p>
-            <p class="text-truncate font-weight-bold">Vertical:{{v}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-        <div class="card m-1" style="background-color:#D7E0E3">
-          <div class="card-body">
-            <p class="text-truncate font-weight-bold">Approved Opportunities:{% for i in appr %}{{i.opn}}{% endfor %}</p>
-            <p class="text-truncate font-weight-bold">Rejected Opportunities:{% for i in appr2 %}{{i.opn2}}{% endfor %}</p>
-          </div>
-        </div>
-        </div>
-        <div class="col-3">
-        <div class="card m-1" style="background-color:#D7E0E3">
-          <div class="card-body">
-          <p class="text-truncate font-weight-bold">Risky observations:{% for i in risky %}{{i.na}}{% endfor %}</p>
-         <p class="text-truncate font-weight-bold"> Open risky observations:{% for i in openrisky %}{{i.na}}{% endfor %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="card m-1" style="background-color:#D7E0E3">
-          <div class="card-body">
-          <p class="text-truncate font-weight-bold">Open observations:{% for i in openob %}{{i.na}}{% endfor %}</p>
-         <p class="text-truncate font-weight-bold"> Closed observations:{% for i in closedob %}{{i.na}}{% endfor %}</p>
-          </div>
-        </div>
-      </div>
-      </div>
+    driver.verifyConnectivity().then(function () {
+        // Start the generation using parameter as root label of the query.
+        popoto.start(schema);
+    }).catch(function (error) {
+        document.getElementById("modal").style.display = "block";
+        document.getElementById("error-content").innerText = error;
+        console.error(error)
+    })
 
-      <div class="row p-4">
-        <div class="col-6">
-		<div class="card" style="background-color:#D7E0E3">
-          <div id="graph">
-          </div>
-		  </div>
-        </div>
-        <div class="col-6">
-		<div class="card" style="height:402;background-color:#D7E0E3">
-          <div class="table-responsive p-2">
-          <table class="table table-striped table-bordered table-hover">
-            <tr>
-              <th>Vertical</th><th>Account</th><th>Opportunity ID</th><th>DA Approval</th><th>Opportunity Name</th><th>Deliverable Type</th>
-              <th>Billing Type</th><th>Observation</th><th>Observation Type</th><th>Risky</th><th>Status</th>
-            </tr>
-            {% for i in r3 %}
-            <tr>
-              <td>{{i.v}}</td>
-              <td>{{i.a}}</td>
-              <td>{{i.oi}}</td>
-              <td>{{i.da}}</td>
-              <td>{{i.on}}</td>
-              <td>{{i.d}}</td>
-              <td>{{i.b}}</td>
-              <td>{{i.o}}</td>
-              <td>{{i.ot}}</td>
-              <td>{{i.r}}</td>
-              <td>{{i.s}}</td>
-            </tr>
-            {% endfor %}
-          </table>
-        </div>
-		</div>
-        </div>
-      </div>
-  </div>
+</script>
 </body>
-<script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    const width = 200, height = 200;
-
-    const force = d3.layout.force()
-            .charge(-200).linkDistance(30).size([width, height]);
-
-    const svg = d3.select("#graph").append("svg")
-            .attr("width", 424).attr("height", 400)
-            .attr("pointer-events", "all");
-
-    d3.json("/graph", function(error, graph) {
-        if (error) return;
-
-        force.nodes(graph.nodes).links(graph.links).start();
-
-        const link = svg.selectAll(".link")
-                .data(graph.links).enter()
-                .append("line").attr("class", "link");
-
-        const node = svg.selectAll(".node")
-                .data(graph.nodes).enter()
-                .append("circle")
-                .attr("class", function (d) { return "node "+d.label })
-                .attr("r", 10)
-                .call(force.drag);
-
-        // html title attribute
-        node.append("title")
-                .text(function (d) { return d.title; })
-
-        // force feed algo ticks
-        force.on("tick", function() {
-            link.attr("x1", function(d) { return d.source.x; })
-                    .attr("y1", function(d) { return d.source.y; })
-                    .attr("x2", function(d) { return d.target.x; })
-                    .attr("y2", function(d) { return d.target.y; });
-
-            node.attr("cx", function(d) { return d.x; })
-                    .attr("cy", function(d) { return d.y; });
-        });
-    });
-</script>
-<script type="text/javascript">
-
-
-var main=document.getElementById('ver');
-var sub=document.getElementById('acc');
-//main.addEventListener('change',function(){})
-m=$("#ver").val()
-console.log();
-{% for i in data %}
-
-if(m===`{{i.ver}}`){
-$('#acc').append("<option value='"+`{{i.acc}}`.trim()+"'>"+`{{i.acc}}`+"</option>");
-        console.log(`{{i.acc}}`);
-}
-
- {% endfor %}
-
-
-$('#ver').change(function(){
-$('#acc').empty();
-var a=$(this).val();
-
-{% for i in data %}
-console.log(a+" "+`{{i.ver}}`);
-
-if(a===`{{i.ver}}`.replace('&amp;','&')){
-$('#acc').append("<option value='"+`{{i.acc}}`.trim()+"'>"+`{{i.acc}}`+"</option>");
-        console.log(`{{i.acc}}`);
-}
-
- {% endfor %}
-})
-
-</script>
 </html>
