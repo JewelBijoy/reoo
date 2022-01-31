@@ -35,8 +35,8 @@
     <script>
 
         var driver = neo4j.driver(
-            "neo4j+s://fbd331ed.databases.neo4j.io",
-            neo4j.auth.basic("neo4j", "4ebwFjta0RPhkNs-Ea6IPcNUPFSrI_DV-ZEBUxArqzQ"),
+            "neo4j+s://16e2d939.databases.neo4j.io",
+            neo4j.auth.basic("neo4j", "BClKSFHwUAMAOdgT3T6gt7L-mrXWzcHWwGguF1M7awY"),
         );
 
         popoto.runner.DRIVER = driver
@@ -75,6 +75,214 @@
             "ScenarioName": {
                 "returnAttributes": ["name"],
                 "constraintAttribute": "name"
+            },
+            "Facility": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "OfficePL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "OfficeSL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "People": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TeamPL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TeamSL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ITHead": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "BusinessSponsor": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ImportantBusinessService": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Process": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Function": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Technical": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Application": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ApplicationName": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Area": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "AttrDesc": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataAccessPL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataAccessSL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataAtrributes": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataCategory": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataEntity": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataObject": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ApplicationInventoryAvailable": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataSets": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataStoragePL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataStorageSL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "DataSubject": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Description": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "EntityDesc": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ExpectedTime": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Hosting": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "InfrastructureOwner": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "IsVulnerable": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "MainDatastoreName": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "MaximumToleranceLevel": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "MinimumToleranceLevel": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "NumberofCriticalApplications": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "PrimarySponsor": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "ProcessMapsAvailability": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "RiskAppetite": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Service": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "SubDesc": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Synonyms": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "SubDesc": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TPPL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TPSL": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TestCaseDescription": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TestResult": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TestStatus": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TestType": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "TotalNumberofApplications": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
+            },
+            "Vulnerabilities": {
+                "returnAttributes": ["name"],
+                "constraintAttribute": "name"
             }
 
 
@@ -85,22 +293,15 @@
             label: "BusinessService",
             rel: [
                 {
-                    label: "TEAM",
+                    label: "PEOPLE",
                     target: {
-                        label: "TeamName",
+                        label: "People",
 
                         rel: [
                             {
-                                label: "PRIMARYLOCATION",
+                                label: "TEAMNAME",
                                 target: {
-                                    label: "PrimaryLocation"
-
-                                }
-                            },
-                            {
-                                label: "SECONDARYLOCATION",
-                                target: {
-                                    label: "SecondaryLocation"
+                                    label: "TeamName"
 
                                 }
                             }
@@ -141,7 +342,63 @@
                         ]
 
                     }
+                },
+                {
+                    label: "FACILITY",
+                    target: {
+                        label: "Facility",
+                        rel: [
+                            {
+                                label: "OFFICEPL",
+                                target: {
+                                    label: "OfficePL"
+
+                                }
+                            },
+                            {
+                                label: "OFFICESL",
+                                target: {
+                                    label: "OfficeSL"
+
+                                }
+                            }
+
+                        ]
+
+                    }
+                },
+                {
+                    label: "APPLICATION",
+                    target: {
+                        label: "Application",
+                        rel: [
+                            {
+                                label: "APPLICATIONNAME",
+                                target: {
+                                    label: "ApplicationName",
+                                    rel: [
+                                        {
+                                            label: "MAINDATASTORENAME",
+                                            target: {
+                                                label: "MainDatastoreName"
+
+                                            }
+                                        }
+                                    ]
+
+                                }
+                            }]
+                    }
+                },
+                {
+                    label: "TECHNOLOGY",
+                    target: {
+                        label: "Technical",
+
+
+                    }
                 }
+
 
             ]
 
