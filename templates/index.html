@@ -35,8 +35,8 @@
     <script>
 
         var driver = neo4j.driver(
-            "neo4j+s://16e2d939.databases.neo4j.io",
-            neo4j.auth.basic("neo4j", "BClKSFHwUAMAOdgT3T6gt7L-mrXWzcHWwGguF1M7awY"),
+            "neo4j+s://fbd331ed.databases.neo4j.io",
+            neo4j.auth.basic("neo4j", "4ebwFjta0RPhkNs-Ea6IPcNUPFSrI_DV-ZEBUxArqzQ"),
         );
 
         popoto.runner.DRIVER = driver
@@ -289,120 +289,139 @@
         };
 
 
-        var schema = {
-            label: "BusinessService",
+        var schema =
+
+        {
+            label: "Function",
             rel: [
-                {
-                    label: "PEOPLE",
-                    target: {
-                        label: "People",
+            {
+            label: "SERVICE",
+                target: {
+                label: "Service",
+                    rel: [
+                        {
+                            label: "BUSINESSSERVICE",
+                            target: {
+                                label: "BusinessService",
+                                rel: [
+                                    {
+                                        label: "PEOPLE",
+                                        target: {
+                                            label: "People",
 
-                        rel: [
-                            {
-                                label: "TEAMNAME",
-                                target: {
-                                    label: "TeamName"
+                                            rel: [
+                                                {
+                                                    label: "TEAMNAME",
+                                                    target: {
+                                                        label: "TeamName"
 
-                                }
-                            }
-                        ]
-                    }
-
-
-                },
-                {
-                    label: "THIRDPARTY",
-                    target: {
-                        label: "ThirdParty",
-                        rel: [
-                            {
-                                label: "THIRDPARTYNAME",
-                                target: {
-                                    label: "ThirdPartyName"
-
-                                }
-                            }
-
-                        ]
-                    }
-                },
-                {
-                    label: "SCENARIOS",
-                    target: {
-                        label: "Scenario",
-                        rel: [
-                            {
-                                label: "SCENARIONAME",
-                                target: {
-                                    label: "ScenarioName"
-
-                                }
-                            }
-
-                        ]
-
-                    }
-                },
-                {
-                    label: "FACILITY",
-                    target: {
-                        label: "Facility",
-                        rel: [
-                            {
-                                label: "OFFICEPL",
-                                target: {
-                                    label: "OfficePL"
-
-                                }
-                            },
-                            {
-                                label: "OFFICESL",
-                                target: {
-                                    label: "OfficeSL"
-
-                                }
-                            }
-
-                        ]
-
-                    }
-                },
-                {
-                    label: "APPLICATION",
-                    target: {
-                        label: "Application",
-                        rel: [
-                            {
-                                label: "APPLICATIONNAME",
-                                target: {
-                                    label: "ApplicationName",
-                                    rel: [
-                                        {
-                                            label: "MAINDATASTORENAME",
-                                            target: {
-                                                label: "MainDatastoreName"
-
-                                            }
+                                                    }
+                                                }
+                                            ]
                                         }
-                                    ]
-
-                                }
-                            }]
-                    }
-                },
-                {
-                    label: "TECHNOLOGY",
-                    target: {
-                        label: "Technical",
 
 
-                    }
-                }
+                                    },
+                                    {
+                                        label: "THIRDPARTY",
+                                        target: {
+                                            label: "ThirdParty",
+                                            rel: [
+                                                {
+                                                    label: "THIRDPARTYNAME",
+                                                    target: {
+                                                        label: "ThirdPartyName"
+
+                                                    }
+                                                }
+
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        label: "SCENARIOS",
+                                        target: {
+                                            label: "Scenario",
+                                            rel: [
+                                                {
+                                                    label: "SCENARIONAME",
+                                                    target: {
+                                                        label: "ScenarioName"
+
+                                                    }
+                                                }
+
+                                            ]
+
+                                        }
+                                    },
+                                    {
+                                        label: "FACILITY",
+                                        target: {
+                                            label: "Facility",
+                                            rel: [
+                                                {
+                                                    label: "OFFICEPL",
+                                                    target: {
+                                                        label: "OfficePL"
+
+                                                    }
+                                                },
+                                                {
+                                                    label: "OFFICESL",
+                                                    target: {
+                                                        label: "OfficeSL"
+
+                                                    }
+                                                }
+
+                                            ]
+
+                                        }
+                                    },
+                                    {
+                                        label: "APPLICATION",
+                                        target: {
+                                            label: "Application",
+                                            rel: [
+                                                {
+                                                    label: "APPLICATIONNAME",
+                                                    target: {
+                                                        label: "ApplicationName",
+                                                        rel: [
+                                                            {
+                                                                label: "MAINDATASTORENAME",
+                                                                target: {
+                                                                    label: "MainDatastoreName"
+
+                                                                }
+                                                            }
+                                                        ]
+
+                                                    }
+                                                }]
+                                        }
+                                    },
+                                    {
+                                        label: "TECHNOLOGY",
+                                        target: {
+                                            label: "Technical",
+
+                                        }
+                                    }
 
 
+                                ]
+                            }
+                        }]
+            }
+
+
+
+        }
             ]
-
-        };
+        }
+        ;
 
         driver.verifyConnectivity().then(function () {
             // Start the generation using parameter as root label of the query.
